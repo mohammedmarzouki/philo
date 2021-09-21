@@ -6,7 +6,7 @@
 /*   By: mmarzouk <mmarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 10:31:45 by mmarzouk          #+#    #+#             */
-/*   Updated: 2021/09/21 09:05:21 by mmarzouk         ###   ########.fr       */
+/*   Updated: 2021/09/21 11:12:15 by mmarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,20 @@
 typedef struct s_node
 {
 	pthread_mutex_t	fork;
+	pthread_mutex_t	eating;
 	int				id;
+	void			*all;
 	struct s_node	*next;
 }	t_node;
 
 typedef struct	s_philo
 {
 	pthread_mutex_t	write;
-	int		philos;
-	int		death ;
-	int		meal;
-	int		sleep;
+	pthread_mutex_t	dead;
+	int		philosN;
+	int		deathT ;
+	int		mealT;
+	int		sleepT;
 	int		eat_count;
 	t_node	*person;
 }				t_philo;

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarzouk <mmarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/17 10:31:12 by mmarzouk          #+#    #+#             */
-/*   Updated: 2021/09/21 10:23:13 by mmarzouk         ###   ########.fr       */
+/*   Created: 2021/09/21 10:27:43 by mmarzouk          #+#    #+#             */
+/*   Updated: 2021/09/21 11:16:03 by mmarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+void    routinePhilo(t_node  *self)
 {
-	t_philo asset;
+	/* taking fork */
+	takingForks(self);
+	/* eating */
+	/* sleeping */
+	/* thinking */
+}
 
-	if (!check_assign(argc, argv, &asset))
-		return (0);
-	if (!initials(&asset))
-		return (0);
-	while (asset.philosN--)
-	{
-		printf("%d\n",asset.person->id);
-		asset.person = asset.person->next;
-	}
+void    takingForks(t_node  *self)
+{
+	
 }
