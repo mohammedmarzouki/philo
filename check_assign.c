@@ -6,7 +6,7 @@
 /*   By: mmarzouk <mmarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 13:19:38 by mmarzouk          #+#    #+#             */
-/*   Updated: 2021/09/18 12:05:33 by mmarzouk         ###   ########.fr       */
+/*   Updated: 2021/09/21 08:49:40 by mmarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int check_assign(int count , char **args, t_philo *asset)
 	asset->death = check_nb(args[2]);
 	asset->meal = check_nb(args[3]);
 	asset->sleep = check_nb(args[4]);
+	asset->person = NULL;
 	if (args[5])
 		asset->eat_count = check_nb(args[5]);
 	else

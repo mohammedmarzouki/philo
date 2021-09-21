@@ -6,7 +6,7 @@
 /*   By: mmarzouk <mmarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 10:31:45 by mmarzouk          #+#    #+#             */
-/*   Updated: 2021/09/20 20:29:56 by mmarzouk         ###   ########.fr       */
+/*   Updated: 2021/09/21 09:05:21 by mmarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ typedef struct	s_philo
 /*   parsing   */
 int	check_nb(const char *str);
 int	check_assign(int count , char **args, t_philo *asset);
+
+/*   init   */
+int initials(t_philo *philo);
+int	create_philo(t_philo *philo, int count);
+
+/*   linked_list  */
+t_node	*a_node(int	id);
+void	append(t_node **list, t_node *node);
 
 
 #endif
