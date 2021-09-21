@@ -19,6 +19,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef struct s_philo t_philo;
+
 typedef struct s_node
 {
 	pthread_mutex_t	fork;
