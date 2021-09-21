@@ -34,10 +34,11 @@ typedef struct	s_philo
 {
 	pthread_mutex_t	write;
 	pthread_mutex_t	dead;
-	int		philosN;
-	int		deathT ;
-	int		mealT;
-	int		sleepT;
+	long	start_time;
+	int		philos;
+	int		death ;
+	int		meal;
+	int		sleep;
 	int		eat_count;
 	t_node	*person;
 }				t_philo;
