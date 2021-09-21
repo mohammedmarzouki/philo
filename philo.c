@@ -16,10 +16,15 @@ int main(int argc, char **argv)
 {
 	t_philo asset;
 
+	printf("%ld\n",get_time());
+	usleep(5000 * 1000);
+	printf("%ld\n",get_time());
+
 	if (!check_assign(argc, argv, &asset))
 		return (0);
 	if (!initials(&asset))
 		return (0);
+	return (0);
 	while (asset.philosN--)
 	{
 		printf("%d\n",asset.person->id);

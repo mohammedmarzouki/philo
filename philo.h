@@ -52,6 +52,9 @@ int	check_assign(int count , char **args, t_philo *asset);
 int initials(t_philo *philo);
 int	create_philo(t_philo *philo, int count);
 
+/*   tools   */
+long	get_time(void);
+
 /*   linked_list  */
 t_node	*a_node(int	id);
 void	append(t_node **list, t_node *node);
