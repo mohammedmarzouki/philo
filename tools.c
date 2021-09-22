@@ -23,14 +23,15 @@ long 	get_time(void)
 void	ft_sleep(int time)
 {
 	int		sleep;
-	int		loop;
+	// int		loop;
 	long	end;
 
-	time *= 1000;
-	end = get_time() + time;
-	sleep = (time * 90) / 100;
-	loop = (time * 10) / 100;
+	end = get_time() + (long)time;
+	// printf("[%d]\n", time);
+	sleep = time * 1000;
+	sleep = (sleep * 90) / 100;
+	// loop = time * 1000;
+	// loop = (time * 10) / 100;
 	usleep(sleep);
-	while (get_time() < end)
-		usleep(100);
+	while (get_time() < end);
 }

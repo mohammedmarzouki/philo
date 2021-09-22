@@ -12,8 +12,11 @@
 
 #include "philo.h"
 
-void	*routine_philo(t_node	*self)
+void	*routine_philo(void	*sel)
 {
+	t_node *self;
+	self = (t_node*)sel;
+	//prin/tf("hello %d\n",self->id);
 	self->last_meal = get_time();
 	while(1)
 	{
@@ -35,12 +38,14 @@ void	philo_write(char *s,t_node	*self)
 void	eating(t_node	*self)
 {
 	pthread_mutex_lock(&self->eating);
+	self->eat = 1;
 	self->last_meal = get_time();
 	philo_write("is eating", self);
 	ft_sleep(self->all->meal);
 	pthread_mutex_unlock(&self->eating);
 	pthread_mutex_unlock(&self->fork);
 	pthread_mutex_unlock(&self->next->fork);
+	self->eat = 0;
 }
 
 void	sleeping(t_node	*self)

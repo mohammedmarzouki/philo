@@ -39,6 +39,7 @@ typedef struct s_node
 	pthread_mutex_t	eating;
 	pthread_t		sup;
 	pthread_t		philo;
+	int				eat;
 	int				id;
 	long			last_meal;
 	t_philo			*all;
@@ -59,8 +60,8 @@ int launch(t_philo *philo, t_node **nodes);
 void	taking_forks(t_node	*self);
 void	eating(t_node	*self);
 void	sleeping(t_node	*self);
-void	*routine_philo(t_node	*self);
-void	*routine_sup(t_node	*self);
+void	*routine_philo(void	*self);
+void	*routine_sup(void	*self);
 
 /*   tools   */
 long	get_time(void);
