@@ -14,19 +14,40 @@
 
 void	routine_philo(t_node	*self)
 {
-	/* taking fork */
-	taking_forks(self);
-	/* eating */
-	/* sleeping */
-	/* thinking */
+	self->last_meal = get_time();
+	while(1)
+	{
+		taking_forks(self);
+		eating(self);
+		sleeping(self);
+		philo_write("is thinking", self);
+	}
 }
 
 void	philo_write(char *s,t_node	*self)
 {
-	pthread_mutex_lock(&((t_philo*)self->all)->write);
-	
-	
+	pthread_mutex_lock(&self->all->write);
+	printf("%ld %d %s\n", get_time(), self->id, s);
+	pthread_mutex_unlock(&self->all->write);
 }
+
+void	eating(t_node	*self)
+{
+	pthread_mutex_lock(&self->eating);
+	self->last_meal = get_time();
+	philo_write("is eating", self);
+	ft_sleep(self->all->meal);
+	pthread_mutex_unlock(&self->eating);
+	pthread_mutex_unlock(&self->fork);
+	pthread_mutex_unlock(&self->next->fork);
+}
+
+void	sleeping(t_node	*self)
+{
+	philo_write("is sleeping", self);
+	ft_sleep(self->all->sleep);
+}
+
 void	taking_forks(t_node	*self)
 {
 	if (self->id % 2)

@@ -23,7 +23,6 @@ int main(int argc, char **argv)
 
 	if (!check_assign(argc, argv, &asset))
 		return (0);
-	nodes = NULL;
 	if (!initials(&asset, &nodes))
 		return (0);
 	return (0);

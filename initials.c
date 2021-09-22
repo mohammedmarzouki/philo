@@ -15,7 +15,7 @@
 int initials(t_philo *philo, t_node **nodes)
 {
 	int count;
-
+	*nodes = NULL;
 	count = -1;
 	while (++count < philo->philos)
 		if(!create_philo(philo, nodes, count))
