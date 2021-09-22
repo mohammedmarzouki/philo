@@ -15,19 +15,31 @@
 int launch(t_philo *philo, t_node **nodes)
 {
 	int count;
-	count = -1;
+	count = 0;
 
-	while (++count < philo->philos)
+	philo->start_time = get_time();
+	while (count < philo->philos)
 	{
+		(*nodes)->last_meal = get_time();
 		if(pthread_create(&(*nodes)->philo, NULL, routine_philo, (*nodes)))
 			return (0);
 		if(pthread_create(&(*nodes)->sup, NULL, routine_sup, (*nodes)))
 			return (0);
 		*nodes = (*nodes)->next;
-		// if (count % 2 == 0)
-		// 	usleep(100);
+		count += 2;
 	}
+	usleep(100);
 	count = -1;
+	while (++count < philo->philos)
+	{
+		(*nodes)->last_meal = get_time();
+		if(pthread_create(&(*nodes)->philo, NULL, routine_philo, (*nodes)))
+			return (0);
+		if(pthread_create(&(*nodes)->sup, NULL, routine_sup, (*nodes)))
+			return (0);
+		*nodes = (*nodes)->next;
+		count += 2;
+	}
 	pthread_mutex_lock(&philo->dead);
 	while (++count < philo->philos)
 	{
@@ -43,7 +55,6 @@ int main(int argc, char **argv)
 {
 	t_philo asset;
 	t_node	*nodes;
-	printf("%ld\n",get_time());
 	if (!check_assign(argc, argv, &asset))
 		return (0);
 	if (!initials(&asset, &nodes))

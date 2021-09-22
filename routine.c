@@ -16,7 +16,7 @@ void	*routine_philo(void	*sel)
 {
 	t_node *self;
 	self = (t_node*)sel;
-	//prin/tf("hello %d\n",self->id);
+	self->eat = 0;
 	self->last_meal = get_time();
 	while(1)
 	{
@@ -31,43 +31,45 @@ void	*routine_philo(void	*sel)
 void	philo_write(char *s,t_node	*self)
 {
 	pthread_mutex_lock(&self->all->write);
-	printf("%ld %d %s\n", get_time(), self->id, s);
+	printf("%04ld %d %s\n", get_time() - self->all->start_time, self->id, s);
 	pthread_mutex_unlock(&self->all->write);
 }
 
 void	eating(t_node	*self)
 {
 	pthread_mutex_lock(&self->eating);
-	self->eat = 1;
+	self->eat++;
 	self->last_meal = get_time();
 	philo_write("is eating", self);
+	if(self->all->eat_count != -2 && self->eat == self->all->eat_count)
+		self->all->eaten++;
 	ft_sleep(self->all->meal);
 	pthread_mutex_unlock(&self->eating);
-	pthread_mutex_unlock(&self->fork);
-	pthread_mutex_unlock(&self->next->fork);
-	self->eat = 0;
+	
 }
 
 void	sleeping(t_node	*self)
 {
 	philo_write("is sleeping", self);
+	pthread_mutex_unlock(&(self->fork));
+	pthread_mutex_unlock(&(self->next->fork));
 	ft_sleep(self->all->sleep);
 }
 
 void	taking_forks(t_node	*self)
 {
-	if (self->id % 2)
-	{
+	// if ((self->id % 2))
+	// {
 		pthread_mutex_lock(&(self->fork));
 		philo_write("has taken a fork", self);
 		pthread_mutex_lock(&(self->next->fork));
 		philo_write("has taken a fork", self);
-	}
-	else
-	{
-		pthread_mutex_lock(&(self->next->fork));
-		philo_write("has taken a fork", self);
-		pthread_mutex_lock(&(self->fork));
-		philo_write("has taken a fork", self);
-	}
+	// }
+	// else
+	// {
+	// 	pthread_mutex_lock(&(self->next->fork));
+	// 	philo_write("has taken a fork", self);
+	// 	pthread_mutex_lock(&(self->fork));
+	// 	philo_write("has taken a fork", self);
+	// }
 }

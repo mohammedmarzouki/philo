@@ -20,6 +20,7 @@ int initials(t_philo *philo, t_node **nodes)
 	while (++count < philo->philos)
 		if(!create_philo(philo, nodes, count))
 			return (0);
+	philo->eaten = 0;
 	pthread_mutex_init(&(philo->dead), NULL);
 	pthread_mutex_init(&(philo->write), NULL);
 	pthread_mutex_lock(&(philo->dead));

@@ -25,12 +25,13 @@ typedef struct	s_philo
 {
 	pthread_mutex_t	write;
 	pthread_mutex_t	dead;
-	/*long	start_time;*/
+	long	start_time;
 	int		philos;
 	int		death ;
 	int		meal;
 	int		sleep;
 	int		eat_count;
+	int		eaten;
 }				t_philo;
 
 typedef struct s_node
