@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	routine_philo(t_node	*self)
+void	*routine_philo(t_node	*self)
 {
 	self->last_meal = get_time();
 	while(1)
@@ -22,6 +22,7 @@ void	routine_philo(t_node	*self)
 		sleeping(self);
 		philo_write("is thinking", self);
 	}
+	return (NULL);
 }
 
 void	philo_write(char *s,t_node	*self)

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   supervisor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarzouk <mmarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,24 @@
 
 #include "philo.h"
 
-long 	get_time(void)
+void	*routine_sup(t_node	*self)
 {
-	struct timeval	now;
+	long	diff;
+	while(1)
+	{   
+		diff = get_time() - self->last_meal;
 
-	gettimeofday(&now, NULL);
-	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
-}
+		if (diff > self->all->death)
+		{
+			pthread_mutex_lock(&self->all->write);
+			printf("%ld %d died\n", get_time(), self->id);
+			pthread_mutex_unlock(&self->all->dead);
+		}
+		else if (diff < self->all->death + 30)
+			usleep(25000);
+		else
+			usleep(100);
 
-void	ft_sleep(int time)
-{
-	int		sleep;
-	int		loop;
-	long	end;
-
-	time *= 1000;
-	end = get_time() + time;
-	sleep = (time * 90) / 100;
-	loop = (time * 10) / 100;
-	usleep(sleep);
-	while (get_time() < end)
-		usleep(100);
+	}
+	return (NULL);
 }

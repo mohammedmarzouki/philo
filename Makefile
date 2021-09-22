@@ -14,7 +14,7 @@ NAME = philo
 
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 
-SRCS = check_assign.c philo.c initials.c linked_list.c tools.c
+SRCS = check_assign.c philo.c initials.c linked_list.c tools.c routine.c supervisor.c
 
 all:$(NAME)
 

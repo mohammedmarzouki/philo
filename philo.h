@@ -37,6 +37,8 @@ typedef struct s_node
 {
 	pthread_mutex_t	fork;
 	pthread_mutex_t	eating;
+	pthread_t		sup;
+	pthread_t		philo;
 	int				id;
 	long			last_meal;
 	t_philo			*all;
@@ -51,16 +53,19 @@ int	check_assign(int count , char **args, t_philo *asset);
 /*   init   */
 int initials(t_philo *philo,t_node **nodes);
 int	create_philo(t_philo *philo, t_node **nodes, int count);
+int launch(t_philo *philo, t_node **nodes);
 
 /* routines */
 void	taking_forks(t_node	*self);
 void	eating(t_node	*self);
 void	sleeping(t_node	*self);
-void	routine_philo(t_node	*self);
+void	*routine_philo(t_node	*self);
+void	*routine_sup(t_node	*self);
 
 /*   tools   */
 long	get_time(void);
 void	philo_write(char *s,t_node	*self);
+void	ft_sleep(int time);
 
 /*   linked_list  */
 t_node	*a_node(int	id);
