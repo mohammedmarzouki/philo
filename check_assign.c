@@ -39,18 +39,17 @@ int check_assign(int count , char **args, t_philo *asset)
 {
 	if (count != 5 && count != 6)
 		return (0);
-	asset->philosN = check_nb(args[1]);
-	asset->deathT = check_nb(args[2]);
-	asset->mealT = check_nb(args[3]);
-	asset->sleepT = check_nb(args[4]);
-	asset->person = NULL;
+	asset->philos = check_nb(args[1]);
+	asset->death = check_nb(args[2]);
+	asset->meal = check_nb(args[3]);
+	asset->sleep = check_nb(args[4]);
 	if (args[5])
 		asset->eat_count = check_nb(args[5]);
 	else
 		asset->eat_count = -2;
-	if (asset->philosN > 200 || asset->philosN < 1 || asset->eat_count == -1)
+	if (asset->philos > 200 || asset->philos < 1 || asset->eat_count == -1)
 		return (0);
-	if (asset->deathT < 60 || asset->mealT < 60 || asset->sleepT < 60)
+	if (asset->death < 60 || asset->meal < 60 || asset->sleep < 60)
 		return (0);
 	return (1);
 }

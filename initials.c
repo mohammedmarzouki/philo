@@ -12,20 +12,20 @@
 
 #include "philo.h"
 
-int initials(t_philo *philo)
+int initials(t_philo *philo, t_node **nodes)
 {
 	int count;
 
 	count = -1;
-	while (++count < philo->philosN)
-		if(!create_philo(philo, count))
+	while (++count < philo->philos)
+		if(!create_philo(philo, nodes, count))
 			return (0);
 	pthread_mutex_init(&(philo->dead), NULL);
 	pthread_mutex_init(&(philo->write), NULL);
 	return (1);
 }
 
-int	create_philo(t_philo *philo, int count)
+int	create_philo(t_philo *philo, t_node **nodes, int count)
 {
 	t_node *hold;
 	
@@ -35,6 +35,6 @@ int	create_philo(t_philo *philo, int count)
 	pthread_mutex_init(&(hold->fork), NULL);
 	pthread_mutex_init(&(hold->eating), NULL);
 	hold->all = philo;
-	append(&(philo->person), hold);
+	append(nodes, hold);
 	return (1);
 }

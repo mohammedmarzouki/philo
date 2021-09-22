@@ -19,16 +19,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_philo t_philo;
 
-typedef struct s_node
-{
-	pthread_mutex_t	fork;
-	pthread_mutex_t	eating;
-	int				id;
-	void			*all;
-	struct s_node	*next;
-}	t_node;
 
 typedef struct	s_philo
 {
@@ -40,9 +31,16 @@ typedef struct	s_philo
 	int		meal;
 	int		sleep;
 	int		eat_count;
-	t_node	*person;
 }				t_philo;
 
+typedef struct s_node
+{
+	pthread_mutex_t	fork;
+	pthread_mutex_t	eating;
+	int				id;
+	t_philo			*all;
+	struct s_node	*next;
+}	t_node;
 
 
 /*   parsing   */
@@ -50,8 +48,8 @@ int	check_nb(const char *str);
 int	check_assign(int count , char **args, t_philo *asset);
 
 /*   init   */
-int initials(t_philo *philo);
-int	create_philo(t_philo *philo, int count);
+int initials(t_philo *philo,t_node **nodes);
+int	create_philo(t_philo *philo, t_node **nodes, int count);
 
 /*   tools   */
 long	get_time(void);

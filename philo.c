@@ -15,6 +15,7 @@
 int main(int argc, char **argv)
 {
 	t_philo asset;
+	t_node	*nodes;
 
 	printf("%ld\n",get_time());
 	usleep(5000 * 1000);
@@ -22,12 +23,9 @@ int main(int argc, char **argv)
 
 	if (!check_assign(argc, argv, &asset))
 		return (0);
-	if (!initials(&asset))
+	nodes = NULL;
+	if (!initials(&asset, &nodes))
 		return (0);
 	return (0);
-	while (asset.philosN--)
-	{
-		printf("%d\n",asset.person->id);
-		asset.person = asset.person->next;
-	}
+
 }
