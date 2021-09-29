@@ -15,7 +15,7 @@
 int	check_nb(const char *str)
 {
 	long	resultat;
-	int i;
+	int		i;
 
 	resultat = 0;
 	i = 0;
@@ -35,7 +35,7 @@ int	check_nb(const char *str)
 	return ((int)resultat);
 }
 
-int check_assign(int count , char **args, t_philo *asset)
+int	check_assign(int count, char **args, t_philo *asset)
 {
 	if (count != 5 && count != 6)
 		return (0);

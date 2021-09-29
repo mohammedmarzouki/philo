@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-long 	get_time(void)
+long	get_time(void)
 {
 	struct timeval	now;
 
@@ -23,15 +23,12 @@ long 	get_time(void)
 void	ft_sleep(int time)
 {
 	int		sleep;
-	// int		loop;
 	long	end;
 
 	end = get_time() + (long)time;
-	// printf("[%d]\n", time);
 	sleep = time * 1000;
 	sleep = (sleep * 90) / 100;
-	// loop = time * 1000;
-	// loop = (time * 10) / 100;
 	usleep(sleep);
-	while (get_time() < end);
+	while (get_time() < end)
+		usleep(100);
 }

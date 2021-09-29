@@ -14,8 +14,9 @@
 
 void	*routine_philo(void	*sel)
 {
-	t_node *self;
-	self = (t_node*)sel;
+	t_node	*self;
+
+	self = (t_node *)sel;
 	self->eat = 0;
 	self->last_meal = get_time();
 	while(1)
@@ -41,9 +42,9 @@ void	eating(t_node	*self)
 	self->eat++;
 	self->last_meal = get_time();
 	philo_write("is eating", self);
-	if(self->all->eat_count != -2 && self->eat == self->all->eat_count)
-		self->all->eaten++;
 	ft_sleep(self->all->meal);
+	if (self->all->eat_count != -2 && self->eat == self->all->eat_count)
+		self->all->eaten++;
 	pthread_mutex_unlock(&self->eating);
 	
 }

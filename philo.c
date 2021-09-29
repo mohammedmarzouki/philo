@@ -44,6 +44,7 @@ int launch(t_philo *philo, t_node **nodes)
 		}
 		*nodes = (*nodes)->next;
 	}
+	count = -1;
 	pthread_mutex_lock(&philo->dead);
 	while (++count < philo->philos)
 	{

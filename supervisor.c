@@ -14,22 +14,28 @@
 
 void	*routine_sup(void	*sel)
 {
-	t_node *self;
-	self = (t_node*)sel;
+	t_node	*self;
 	long	dif;
-	while(1)
-	{   
+
+	self = (t_node *)sel;
+	while (1)
+	{
 		dif = get_time() - self->last_meal;
-		// printf("%d\n",self->all->death);
 		if (dif > self->all->death)
 		{
 			pthread_mutex_lock(&self->all->write);
-			printf("%04ld %d died\n", get_time()- self->all->start_time, self->id);
+			printf("%04ld %d died\n", get_time()
+				- self->all->start_time, self->id);
 			pthread_mutex_unlock(&self->all->dead);
 		}
-		else if (self->all->eaten == self->all->philos)
+		else if (self->all->eaten >= self->all->philos)
+		{
+			pthread_mutex_lock(&self->eating);
+			// printf("%04ld %d done\n", get_time()
+			// 	- self->all->start_time, self->id);
 			pthread_mutex_unlock(&self->all->dead);
-		else if (dif + 30 < self->all->death )
+		}
+		else if (dif + 30 < self->all->death)
 			usleep(25000);
 		else
 			usleep(200);
