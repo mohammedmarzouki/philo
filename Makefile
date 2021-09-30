@@ -12,7 +12,7 @@
 
 NAME = philo
 
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread 
 
 SRCS = check_assign.c philo.c initials.c linked_list.c tools.c routine.c supervisor.c
 

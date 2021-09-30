@@ -14,13 +14,18 @@
 
 void	*routine_sup(void	*sel)
 {
+	t_node	*hold;
 	t_node	*self;
 	long	dif;
+	int i;
 
 	self = (t_node *)sel;
+	hold = self;
 	while (1)
 	{
+		pthread_mutex_lock(&self->data);
 		dif = get_time() - self->last_meal;
+		pthread_mutex_unlock(&self->data);
 		if (dif > self->all->death)
 		{
 			pthread_mutex_lock(&self->all->write);
@@ -28,13 +33,17 @@ void	*routine_sup(void	*sel)
 				- self->all->start_time, self->id);
 			pthread_mutex_unlock(&self->all->dead);
 		}
-		else if (self->all->eaten >= self->all->philos)
+		else if (self->eat < 0)
 		{
-			pthread_mutex_lock(&self->eating);
-			pthread_mutex_unlock(&self->all->dead);
+			i = -1;
+			while(hold->eat < 0 && ++i < self->all->philos)
+				hold = hold->next;
+			if(hold->eat != 0)
+			{
+				pthread_mutex_lock(&self->all->write);
+				pthread_mutex_unlock(&self->all->dead);
+			}
 		}
-		else if (dif + 30 < self->all->death)
-			usleep(25000);
 		else
 			usleep(200);
 	}

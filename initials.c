@@ -37,6 +37,7 @@ int	create_philo(t_philo *philo, t_node **nodes, int count)
 		return (0);
 	pthread_mutex_init(&(hold->fork), NULL);
 	pthread_mutex_init(&(hold->eating), NULL);
+	pthread_mutex_init(&(hold->data), NULL);
 	hold->all = philo;
 	append(nodes, hold);
 	return (1);

@@ -36,6 +36,7 @@ typedef struct s_node
 {
 	pthread_mutex_t	fork;
 	pthread_mutex_t	eating;
+	pthread_mutex_t	data;
 	pthread_t		sup;
 	pthread_t		philo;
 	int				eat;
