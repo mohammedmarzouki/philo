@@ -19,7 +19,7 @@ void	*routine_philo(void	*sel)
 	self = (t_node *)sel;
 	self->eat = 0;
 	self->last_meal = get_time();
-	while(1)
+	while (1)
 	{
 		taking_forks(self);
 		eating(self);
@@ -29,7 +29,7 @@ void	*routine_philo(void	*sel)
 	return (NULL);
 }
 
-void	philo_write(char *s,t_node	*self)
+void	philo_write(char *s, t_node	*self)
 {
 	pthread_mutex_lock(&self->all->write);
 	printf("%04ld %d %s\n", get_time() - self->all->start_time, self->id, s);
@@ -46,7 +46,6 @@ void	eating(t_node	*self)
 	if (self->all->eat_count != -2 && self->eat == self->all->eat_count)
 		self->all->eaten++;
 	pthread_mutex_unlock(&self->eating);
-	
 }
 
 void	sleeping(t_node	*self)

@@ -31,8 +31,6 @@ void	*routine_sup(void	*sel)
 		else if (self->all->eaten >= self->all->philos)
 		{
 			pthread_mutex_lock(&self->eating);
-			// printf("%04ld %d done\n", get_time()
-			// 	- self->all->start_time, self->id);
 			pthread_mutex_unlock(&self->all->dead);
 		}
 		else if (dif + 30 < self->all->death)

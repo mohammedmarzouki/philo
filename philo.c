@@ -12,34 +12,41 @@
 
 #include "philo.h"
 
-int launch(t_philo *philo, t_node **nodes)
+static	void	launch_half(t_philo *philo, t_node **nodes)
 {
-	int count;
+	int	count;
 
 	count = -1;
 	philo->start_time = get_time();
 	while (++count < philo->philos)
 	{
-		if(count % 2 == 0)
+		if (count % 2 == 0)
 		{
 			(*nodes)->last_meal = get_time();
-			if(pthread_create(&(*nodes)->philo, NULL, routine_philo, (*nodes)))
+			if (pthread_create(&(*nodes)->philo, NULL, routine_philo, (*nodes)))
 				return (0);
-			if(pthread_create(&(*nodes)->sup, NULL, routine_sup, (*nodes)))
+			if (pthread_create(&(*nodes)->sup, NULL, routine_sup, (*nodes)))
 				return (0);
 		}
 		*nodes = (*nodes)->next;
 	}
 	usleep(100);
+}
+
+int	launch(t_philo *philo, t_node **nodes)
+{
+	int	count;
+
+	launch_half(philo, nodes);
 	count = -1;
 	while (++count < philo->philos)
 	{
-		if(count % 2 != 0)
+		if (count % 2 != 0)
 		{
 			(*nodes)->last_meal = get_time();
-			if(pthread_create(&(*nodes)->philo, NULL, routine_philo, (*nodes)))
+			if (pthread_create(&(*nodes)->philo, NULL, routine_philo, (*nodes)))
 				return (0);
-			if(pthread_create(&(*nodes)->sup, NULL, routine_sup, (*nodes)))
+			if (pthread_create(&(*nodes)->sup, NULL, routine_sup, (*nodes)))
 				return (0);
 		}
 		*nodes = (*nodes)->next;
@@ -52,18 +59,19 @@ int launch(t_philo *philo, t_node **nodes)
 		pthread_detach((*nodes)->sup);
 		*nodes = (*nodes)->next;
 	}
-	return(1);
+	return (1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_philo asset;
+	t_philo	asset;
 	t_node	*nodes;
+
 	if (!check_assign(argc, argv, &asset))
 		return (0);
 	if (!initials(&asset, &nodes))
 		return (0);
 	if (!launch(&asset, &nodes))
-		return(0);
+		return (0);
 	return (0);
 }
