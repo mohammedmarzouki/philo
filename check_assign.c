@@ -47,7 +47,8 @@ int	check_assign(int count, char **args, t_philo *asset)
 		asset->eat_count = check_nb(args[5]);
 	else
 		asset->eat_count = -2;
-	if (asset->philos > 200 || asset->philos < 1 || asset->eat_count == -1)
+	if (asset->philos > 200 || asset->philos < 1
+		|| asset->eat_count == -1 || asset->eat_count == 0)
 		return (0);
 	if (asset->death < 60 || asset->meal < 60 || asset->sleep < 60)
 		return (0);

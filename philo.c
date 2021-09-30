@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static	void	launch_half(t_philo *philo, t_node **nodes)
+static	int	launch_half(t_philo *philo, t_node **nodes)
 {
 	int	count;
 
@@ -31,13 +31,15 @@ static	void	launch_half(t_philo *philo, t_node **nodes)
 		*nodes = (*nodes)->next;
 	}
 	usleep(100);
+	return (1);
 }
 
 int	launch(t_philo *philo, t_node **nodes)
 {
 	int	count;
 
-	launch_half(philo, nodes);
+	if (!launch_half(philo, nodes))
+		return (0);
 	count = -1;
 	while (++count < philo->philos)
 	{
@@ -55,8 +57,7 @@ int	launch(t_philo *philo, t_node **nodes)
 	pthread_mutex_lock(&philo->dead);
 	while (++count < philo->philos)
 	{
-		pthread_detach((*nodes)->philo);
-		pthread_detach((*nodes)->sup);
+		pthread_detach((*nodes)->philo), pthread_detach((*nodes)->sup);
 		*nodes = (*nodes)->next;
 	}
 	return (1);
