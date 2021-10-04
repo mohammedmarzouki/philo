@@ -12,15 +12,39 @@
 
 #include "philo.h"
 
-void	*routine_sup(void	*sel)
+static	int	check_eat(t_node	*self)
 {
 	t_node	*hold;
+	int		i;
+
+	i = -1;
+	hold = self;
+	pthread_mutex_lock(&self->eating);
+	while (++i < self->all->philos)
+	{
+		hold = hold->next;
+		if (hold->eat != -1)
+		{
+			i = -1;
+			break ;
+		}
+	}
+	pthread_mutex_unlock(&self->eating);
+	if (i != -1)
+	{
+		pthread_mutex_lock(&self->all->write);
+		pthread_mutex_unlock(&self->all->dead);
+		return (1);
+	}
+	return (0);
+}
+
+void	*routine_sup(void	*sel)
+{
 	t_node	*self;
 	long	dif;
-	int i;
 
 	self = (t_node *)sel;
-	hold = self;
 	while (1)
 	{
 		pthread_mutex_lock(&self->data);
@@ -33,19 +57,8 @@ void	*routine_sup(void	*sel)
 				- self->all->start_time, self->id);
 			pthread_mutex_unlock(&self->all->dead);
 		}
-		else if (self->eat < 0)
-		{
-			i = -1;
-			while(hold->eat < 0 && ++i < self->all->philos)
-				hold = hold->next;
-			if(hold->eat != 0)
-			{
-				pthread_mutex_lock(&self->all->write);
-				pthread_mutex_unlock(&self->all->dead);
-			}
-		}
-		else
-			usleep(200);
+		else if (self->eat < 0 && check_eat(self))
+			break ;
 	}
 	return (NULL);
 }
