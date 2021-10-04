@@ -48,17 +48,19 @@ void	*routine_sup(void	*sel)
 	while (1)
 	{
 		pthread_mutex_lock(&self->data);
-		dif = get_time() - self->last_meal;
+		dif = get_time(0) - self->last_meal;
 		pthread_mutex_unlock(&self->data);
 		if (dif > self->all->death)
 		{
 			pthread_mutex_lock(&self->all->write);
-			printf("%04ld %d died\n", get_time()
+			printf("%04ld %d died\n", get_time(1)
 				- self->all->start_time, self->id);
 			pthread_mutex_unlock(&self->all->dead);
 		}
 		else if (self->eat < 0 && check_eat(self))
 			break ;
+		if (dif + 1000 < self->all->death)
+			usleep(1000);
 	}
 	return (NULL);
 }

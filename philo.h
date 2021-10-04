@@ -25,9 +25,9 @@ typedef struct s_philo
 	pthread_mutex_t	dead;
 	long			start_time;
 	int				philos;
-	int				death ;
-	int				meal;
-	int				sleep;
+	long			death ;
+	long			meal;
+	long			sleep;
 	int				eat_count;
 	int				eaten;
 }				t_philo;
@@ -63,9 +63,9 @@ void	*routine_philo(void	*self);
 void	*routine_sup(void	*self);
 
 /*   tools   */
-long	get_time(void);
+long	get_time(int unit);
 void	philo_write(char *s, t_node	*self);
-void	ft_sleep(int time);
+void	ft_sleep(long time);
 
 /*   linked_list  */
 t_node	*a_node(int	id);

@@ -17,12 +17,12 @@ static	int	launch_half(t_philo *philo, t_node **nodes)
 	int	count;
 
 	count = -1;
-	philo->start_time = get_time();
+	philo->start_time = get_time(1);
 	while (++count < philo->philos)
 	{
 		if (count % 2 == 0)
 		{
-			(*nodes)->last_meal = get_time();
+			(*nodes)->last_meal = get_time(0);
 			if (pthread_create(&(*nodes)->philo, NULL, routine_philo, (*nodes)))
 				return (0);
 			if (pthread_create(&(*nodes)->sup, NULL, routine_sup, (*nodes)))
@@ -45,7 +45,7 @@ int	launch(t_philo *philo, t_node **nodes)
 	{
 		if (count % 2 != 0)
 		{
-			(*nodes)->last_meal = get_time();
+			(*nodes)->last_meal = get_time(0);
 			if (pthread_create(&(*nodes)->philo, NULL, routine_philo, (*nodes)))
 				return (0);
 			if (pthread_create(&(*nodes)->sup, NULL, routine_sup, (*nodes)))

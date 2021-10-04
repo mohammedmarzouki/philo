@@ -52,5 +52,8 @@ int	check_assign(int count, char **args, t_philo *asset)
 		return (0);
 	if (asset->death < 60 || asset->meal < 60 || asset->sleep < 60)
 		return (0);
+	asset->death *= 1000;
+	asset->meal *= 1000;
+	asset->sleep *= 1000;
 	return (1);
 }
